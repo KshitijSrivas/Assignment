@@ -1,11 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Promotion
+﻿namespace Promotion
 {
+    /// <summary>
+    /// Defines the <see cref="ICheckoutService" />.
+    /// </summary>
     interface ICheckoutService
     {
+        /// <summary>
+        /// The CalculateTotalAmount.
+        /// </summary>
+        /// <returns>The <see cref="double"/>.</returns>
         double CalculateTotalAmount();
     }
 }

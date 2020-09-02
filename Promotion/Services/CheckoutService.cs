@@ -1,26 +1,39 @@
-﻿using Promotion.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-
-namespace Promotion
+﻿namespace Promotion
 {
+    using Promotion.Interfaces;
+    using System;
+    using System.Linq;
+
+    /// <summary>
+    /// Defines the <see cref="CheckoutService" />.
+    /// </summary>
     public class CheckoutService : ICheckoutService
     {
+        /// <summary>
+        /// Defines the cartService.
+        /// </summary>
         private readonly ICartService cartService;
 
-
+        /// <summary>
+        /// Defines the promotionService.
+        /// </summary>
         private readonly IPromotionService promotionService;
 
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CheckoutService"/> class.
+        /// </summary>
+        /// <param name="cartService">The cartService<see cref="ICartService"/>.</param>
+        /// <param name="promotionService">The promotionService<see cref="IPromotionService"/>.</param>
         public CheckoutService(ICartService cartService, IPromotionService promotionService)
         {
             this.cartService = cartService;
             this.promotionService = promotionService;
         }
 
+        /// <summary>
+        /// The CalculateTotalAmount.
+        /// </summary>
+        /// <returns>The <see cref="double"/>.</returns>
         public double CalculateTotalAmount()
         {
             double total = 0.0;

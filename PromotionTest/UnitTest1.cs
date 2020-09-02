@@ -1,13 +1,17 @@
-using System;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Promotion;
-
 namespace PromotionTest
 {
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Promotion;
+
+    /// <summary>
+    /// Defines the <see cref="UnitTest1" />.
+    /// </summary>
     [TestClass]
     public class UnitTest1
     {
+        /// <summary>
+        /// The Test_EmptyCart.
+        /// </summary>
         [TestMethod]
         public void Test_EmptyCart()
         {
@@ -17,6 +21,9 @@ namespace PromotionTest
             Assert.AreEqual(checkoutService.CalculateTotalAmount(), 0.0);
         }
 
+        /// <summary>
+        /// The Test_NoPromotions.
+        /// </summary>
         [TestMethod]
         public void Test_NoPromotions()
         {
@@ -32,12 +39,15 @@ namespace PromotionTest
             cartService.AddCartItem(CartItemA);
             cartService.AddCartItem(CartItemB);
             cartService.AddCartItem(CartItemC);
-           
+
             PromotionService promotionService = new PromotionService();
             CheckoutService checkoutService = new CheckoutService(cartService, promotionService);
             Assert.AreEqual(checkoutService.CalculateTotalAmount(), 100);
         }
 
+        /// <summary>
+        /// The Test_Scenario1.
+        /// </summary>
         [TestMethod]
         public void Test_Scenario1()
         {
@@ -59,6 +69,9 @@ namespace PromotionTest
             Assert.AreEqual(checkoutService.CalculateTotalAmount(), 100);
         }
 
+        /// <summary>
+        /// The Test_Scenario2.
+        /// </summary>
         [TestMethod]
         public void Test_Scenario2()
         {
@@ -102,6 +115,9 @@ namespace PromotionTest
             Assert.AreEqual(checkoutService.CalculateTotalAmount(), 370);
         }
 
+        /// <summary>
+        /// The Test_Scenario3.
+        /// </summary>
         [TestMethod]
         public void Test_Scenario3()
         {
