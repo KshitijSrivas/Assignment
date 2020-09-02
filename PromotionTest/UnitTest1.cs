@@ -9,9 +9,33 @@ namespace PromotionTest
     public class UnitTest1
     {
         [TestMethod]
-        public void TestEmptyCart()
+        public void Test_EmptyCart()
         {
+            CartService cartService = new CartService();
+            PromotionService promotionService = new PromotionService();
+            CheckoutService checkoutService = new CheckoutService(cartService, promotionService);
+            Assert.AreEqual(checkoutService.CalculateTotalAmount(), 0.0);
+        }
 
+        [TestMethod]
+        public void Test_NoPromotions()
+        {
+            Product productA = new Product("A", 50);
+            Product productB = new Product("B", 30);
+            Product productC = new Product("C", 20);
+
+            CartItem CartItemA = new CartItem(productA, 1);
+            CartItem CartItemB = new CartItem(productB, 1);
+            CartItem CartItemC = new CartItem(productC, 1);
+
+            CartService cartService = new CartService();
+            cartService.AddCartItem(CartItemA);
+            cartService.AddCartItem(CartItemB);
+            cartService.AddCartItem(CartItemC);
+           
+            PromotionService promotionService = new PromotionService();
+            CheckoutService checkoutService = new CheckoutService(cartService, promotionService);
+            Assert.AreEqual(checkoutService.CalculateTotalAmount(), 100);
         }
 
         [TestMethod]
