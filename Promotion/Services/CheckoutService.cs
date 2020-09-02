@@ -1,11 +1,11 @@
-﻿using Assignment.Interfaces;
+﻿using Promotion.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 
-namespace Assignment
+namespace Promotion
 {
     public class CheckoutService : ICheckoutService
     {
@@ -33,7 +33,7 @@ namespace Assignment
                 return total;
             }
 
-            
+
             var promotions = this.promotionService.GetPromotions();
 
             //if no promotions are available total amount is price of product multiplied by its quantity
@@ -41,31 +41,47 @@ namespace Assignment
             {
                 foreach (var item in cartItems)
                 {
-                    total = total + (item.Quantity * item.Product.ProductPrice);   
+                    total = total + (item.Quantity * item.Product.ProductPrice);
                 }
 
                 return total;
             }
 
-            Dictionary<string, int> count = new Dictionary<string, int>();
-            foreach (var CartItem in cartItems)
+            string temp = string.Empty;// = cartItems.SelectMany(x => x.Product.ProductName).ToArray();
+            foreach (var a in cartItems)
             {
-                if (count.ContainsKey(CartItem.Product.ProductName))
+                for (int i = 0; i < a.Quantity; i++)
                 {
-                    count[CartItem.Product.ProductName] = count[CartItem.Product.ProductName] + 1;
-                }
-                else
-                {
-                    count.Add(CartItem.Product.ProductName, 1);
+                    temp += a.Product.ProductName;
                 }
             }
 
-            foreach (var promo in promotions)
-            {
+            var tempCharArray = temp.ToCharArray();
+            Array.Sort(tempCharArray);
+            var cart = string.Join("", tempCharArray);
 
+            foreach (var p in promotions)
+            {
+                var temp1 = p.Products.Select(x => x.ProductName).ToArray();
+                Array.Sort(temp1);
+                var ptemp = string.Join("", temp1);
+                if (cart.IndexOf(ptemp) > -1)
+                {
+                    total += p.PromotionalCost;
+                    cart = cart.Remove(cart.IndexOf(ptemp), ptemp.Length);
+                }
             }
 
-            return 0.0;
+            if (!string.IsNullOrEmpty(cart))
+            {
+                var a = cart.ToArray();
+                foreach (var c in a)
+                {
+                    var price = cartItems.FirstOrDefault(x => x.Product.ProductName == c.ToString()).Product.ProductPrice;
+                    total += price;
+                }
+            }
+            return total;
         }
     }
 }

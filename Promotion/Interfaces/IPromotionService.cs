@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Assignment
+namespace Promotion
 {
     public interface IPromotionService
     {
-        void AddPromotion(Promotion promotion);
+        void AddPromotion(PromotionEntity promotion);
 
-        IEnumerable<Promotion> GetPromotions();
+        IEnumerable<PromotionEntity> GetPromotions();
     }
 }

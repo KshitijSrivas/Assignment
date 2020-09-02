@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Assignment
+namespace Promotion
 {
-    public class Promotion
+    public class PromotionEntity
     {
         public IList<Product> Products { get; }
 
         public double PromotionalCost { get; set; }
 
-        public Promotion()
+        public PromotionEntity()
         {
             Products = new List<Product>();
         }

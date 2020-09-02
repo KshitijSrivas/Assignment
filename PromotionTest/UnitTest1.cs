@@ -1,13 +1,19 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using Assignment;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Promotion;
 
-namespace AssignmentTest
+namespace PromotionTest
 {
     [TestClass]
     public class UnitTest1
     {
+        [TestMethod]
+        public void TestEmptyCart()
+        {
+
+        }
+
         [TestMethod]
         public void TestMethod1()
         {
@@ -16,31 +22,33 @@ namespace AssignmentTest
             Product productC = new Product("C", 20);
             Product productD = new Product("D", 15);
 
-            Promotion promotionA = new Promotion();
+            PromotionEntity promotionA = new PromotionEntity();
             promotionA.Products.Add(productA);
             promotionA.Products.Add(productA);
             promotionA.Products.Add(productA);
             promotionA.PromotionalCost = 130;
 
-            Promotion promotionB = new Promotion();
-            promotionA.Products.Add(productB);
-            promotionA.Products.Add(productB);
-            
+            PromotionEntity promotionB = new PromotionEntity();
+            promotionB.Products.Add(productB);
+            promotionB.Products.Add(productB);
+
             promotionB.PromotionalCost = 45;
 
-            Promotion compositePromotion = new Promotion();
+            PromotionEntity compositePromotion = new PromotionEntity();
             compositePromotion.Products.Add(productC);
             compositePromotion.Products.Add(productD);
             compositePromotion.PromotionalCost = 30;
 
-            CartItem CartItemA = new CartItem(productA, 1);
+            CartItem CartItemA = new CartItem(productA, 3);
             CartItem CartItemB = new CartItem(productB, 1);
-            CartItem CartItemC = new CartItem(productC, 1);
+            CartItem CartItemC = new CartItem(productC, 2);
+            CartItem CartItemD = new CartItem(productD, 1);
 
             CartService cartService = new CartService();
             cartService.AddCartItem(CartItemA);
             cartService.AddCartItem(CartItemB);
             cartService.AddCartItem(CartItemC);
+            cartService.AddCartItem(CartItemD);
 
             PromotionService promotionService = new PromotionService();
             promotionService.AddPromotion(promotionA);
@@ -48,7 +56,7 @@ namespace AssignmentTest
             promotionService.AddPromotion(compositePromotion);
 
             CheckoutService checkoutService = new CheckoutService(cartService, promotionService);
-            checkoutService.CalculateTotalAmount();
+            Assert.AreEqual(checkoutService.CalculateTotalAmount(), 1);
         }
     }
 }

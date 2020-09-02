@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Assignment.Interfaces
+namespace Promotion.Interfaces
 {
     public interface ICartService
     {

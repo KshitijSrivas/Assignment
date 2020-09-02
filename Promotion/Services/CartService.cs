@@ -1,10 +1,10 @@
-﻿using Assignment.Interfaces;
+﻿using Promotion.Interfaces;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace Assignment
+namespace Promotion
 {
     public class CartService : ICartService
     {

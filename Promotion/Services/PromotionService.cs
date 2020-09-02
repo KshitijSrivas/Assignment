@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Assignment
+namespace Promotion
 {
     public class PromotionService : IPromotionService
     {
-        public IList<Promotion> Promotions { get; }
+        public IList<PromotionEntity> Promotions { get; }
 
         public PromotionService()
         {
-            this.Promotions = new List<Promotion>();
+            this.Promotions = new List<PromotionEntity>();
         }
 
-        public void AddPromotion(Promotion promotion)
+        public void AddPromotion(PromotionEntity promotion)
         {
             if (promotion != null)
             {
@@ -21,7 +21,7 @@ namespace Assignment
             }
         }
 
-        public IEnumerable<Promotion> GetPromotions()
+        public IEnumerable<PromotionEntity> GetPromotions()
         {
             return this.Promotions;
         }
