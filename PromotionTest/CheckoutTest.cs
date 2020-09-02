@@ -4,10 +4,10 @@ namespace PromotionTest
     using Promotion;
 
     /// <summary>
-    /// Defines the <see cref="UnitTest1" />.
+    /// Defines the <see cref="CheckoutTest" />.
     /// </summary>
     [TestClass]
-    public class UnitTest1
+    public class CheckoutTest
     {
         /// <summary>
         /// The Test_EmptyCart.

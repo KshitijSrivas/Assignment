@@ -39,7 +39,7 @@
             double total = 0.0;
             var cartItems = this.cartService.GetCartItems();
 
-            // if no cart item total amount is zero
+            // If no cart item total amount is zero.
             if (cartItems == null || !cartItems.Any())
             {
                 return total;
@@ -47,47 +47,47 @@
 
             var promotions = this.promotionService.GetPromotions();
 
-            // if no promotions are available total amount is price of product multiplied by its quantity
+            // If no promotions are available total amount is price of product multiplied by its quantity.
             if (promotions == null || !promotions.Any())
             {
                 foreach (var item in cartItems)
                 {
-                    total = total + (item.Quantity * item.Product.ProductPrice);
+                    total += item.Quantity * item.Product.ProductPrice;
                 }
 
                 return total;
             }
 
-            string cart = string.Empty;
-            foreach (var a in cartItems)
+            string itemNames = string.Empty;
+            foreach (var item in cartItems)
             {
-                for (int i = 0; i < a.Quantity; i++)
+                for (int i = 0; i < item.Quantity; i++)
                 {
-                    cart += a.Product.ProductName;
+                    itemNames += item.Product.ProductName;
                 }
             }
 
-            var cartCharArray = cart.ToCharArray();
+            var cartCharArray = itemNames.ToCharArray();
             Array.Sort(cartCharArray);
-            var cartValue = string.Join("", cartCharArray);
+            var concatenatedItemNames = string.Join("", cartCharArray);
 
             foreach (var promotion in promotions)
             {
-                var temp = promotion.Products.Select(x => x.ProductName).ToArray();
-                Array.Sort(temp);
-                var ptemp = string.Join("", temp);
-                while (cartValue.IndexOf(ptemp) > -1)
+                var promotionProductNames = promotion.Products.Select(x => x.ProductName).ToArray();
+                Array.Sort(promotionProductNames);
+                var concatenatedProductNames = string.Join("", promotionProductNames);
+                while (concatenatedItemNames.IndexOf(concatenatedProductNames) > -1)
                 {
                     total += promotion.PromotionalCost;
-                    cartValue = cartValue.Remove(cartValue.IndexOf(ptemp), ptemp.Length);
+                    concatenatedItemNames = concatenatedItemNames.Remove(concatenatedItemNames.IndexOf(concatenatedProductNames), concatenatedProductNames.Length);
                 }
             }
 
-            if (!string.IsNullOrEmpty(cartValue))
+            if (!string.IsNullOrEmpty(concatenatedItemNames))
             {
-                foreach (var c in cartValue.ToArray())
+                foreach (var item in concatenatedItemNames.ToArray())
                 {
-                    var price = cartItems.FirstOrDefault(x => x.Product.ProductName == c.ToString()).Product.ProductPrice;
+                    var price = cartItems.FirstOrDefault(x => x.Product.ProductName == item.ToString()).Product.ProductPrice;
                     total += price;
                 }
             }
