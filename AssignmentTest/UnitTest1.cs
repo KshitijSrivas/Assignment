@@ -33,20 +33,22 @@ namespace AssignmentTest
             compositePromotion.Products.Add(productD);
             compositePromotion.PromotionalCost = 30;
 
-            Order orderA = new Order(productA, 1);
-            Order orderB = new Order(productB, 1);
-            Order orderC = new Order(productC, 1);
+            CartItem CartItemA = new CartItem(productA, 1);
+            CartItem CartItemB = new CartItem(productB, 1);
+            CartItem CartItemC = new CartItem(productC, 1);
 
-            Cart cartService = new Cart();
-            cartService.AddOrder(orderA);
-            cartService.AddOrder(orderB);
-            cartService.AddOrder(orderC);
+            CartService cartService = new CartService();
+            cartService.AddCartItem(CartItemA);
+            cartService.AddCartItem(CartItemB);
+            cartService.AddCartItem(CartItemC);
 
-            cartService.AddPromotion(promotionA);
-            cartService.AddPromotion(promotionB);
-            cartService.AddPromotion(compositePromotion);
+            PromotionService promotionService = new PromotionService();
+            promotionService.AddPromotion(promotionA);
+            promotionService.AddPromotion(promotionB);
+            promotionService.AddPromotion(compositePromotion);
 
-            cartService.CalculateTotalPrice();
+            CheckoutService checkoutService = new CheckoutService(cartService, promotionService);
+            checkoutService.CalculateTotalAmount();
         }
     }
 }

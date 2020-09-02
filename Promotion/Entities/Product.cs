@@ -6,7 +6,6 @@ namespace Assignment
 {
     public class Product
     {
-        
         public string ProductName { get; }
 
         public double ProductPrice { get; }

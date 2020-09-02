@@ -8,7 +8,6 @@ namespace Assignment
     {
         public IList<Product> Products { get; }
 
-
         public double PromotionalCost { get; set; }
 
         public Promotion()

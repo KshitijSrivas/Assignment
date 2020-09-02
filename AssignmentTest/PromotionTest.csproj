@@ -56,13 +56,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Promotion\Promotion\Promotion.csproj">
+    <ProjectReference Include="..\Promotion\Promotion.csproj">
       <Project>{119e2fa9-b483-4e8f-8dab-be7039bbf4e0}</Project>
       <Name>Promotion</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Assignment\Assignment.csproj">
-      <Project>{9e576bdf-6595-4432-913d-735f1e220d6e}</Project>
-      <Name>Assignment</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
