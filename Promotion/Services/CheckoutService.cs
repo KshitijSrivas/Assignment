@@ -24,19 +24,17 @@ namespace Promotion
         public double CalculateTotalAmount()
         {
             double total = 0.0;
-
             var cartItems = this.cartService.GetCartItems();
 
-            //if no cart item total amount is zero
+            // if no cart item total amount is zero
             if (cartItems == null || !cartItems.Any())
             {
                 return total;
             }
 
-
             var promotions = this.promotionService.GetPromotions();
 
-            //if no promotions are available total amount is price of product multiplied by its quantity
+            // if no promotions are available total amount is price of product multiplied by its quantity
             if (promotions == null || !promotions.Any())
             {
                 foreach (var item in cartItems)
@@ -47,40 +45,40 @@ namespace Promotion
                 return total;
             }
 
-            string temp = string.Empty;// = cartItems.SelectMany(x => x.Product.ProductName).ToArray();
+            string cart = string.Empty;
             foreach (var a in cartItems)
             {
                 for (int i = 0; i < a.Quantity; i++)
                 {
-                    temp += a.Product.ProductName;
+                    cart += a.Product.ProductName;
                 }
             }
 
-            var tempCharArray = temp.ToCharArray();
-            Array.Sort(tempCharArray);
-            var cart = string.Join("", tempCharArray);
+            var cartCharArray = cart.ToCharArray();
+            Array.Sort(cartCharArray);
+            var cartValue = string.Join("", cartCharArray);
 
-            foreach (var p in promotions)
+            foreach (var promotion in promotions)
             {
-                var temp1 = p.Products.Select(x => x.ProductName).ToArray();
-                Array.Sort(temp1);
-                var ptemp = string.Join("", temp1);
-                if (cart.IndexOf(ptemp) > -1)
+                var temp = promotion.Products.Select(x => x.ProductName).ToArray();
+                Array.Sort(temp);
+                var ptemp = string.Join("", temp);
+                while (cartValue.IndexOf(ptemp) > -1)
                 {
-                    total += p.PromotionalCost;
-                    cart = cart.Remove(cart.IndexOf(ptemp), ptemp.Length);
+                    total += promotion.PromotionalCost;
+                    cartValue = cartValue.Remove(cartValue.IndexOf(ptemp), ptemp.Length);
                 }
             }
 
-            if (!string.IsNullOrEmpty(cart))
+            if (!string.IsNullOrEmpty(cartValue))
             {
-                var a = cart.ToArray();
-                foreach (var c in a)
+                foreach (var c in cartValue.ToArray())
                 {
                     var price = cartItems.FirstOrDefault(x => x.Product.ProductName == c.ToString()).Product.ProductPrice;
                     total += price;
                 }
             }
+
             return total;
         }
     }
